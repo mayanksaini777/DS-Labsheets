@@ -1,0 +1,7 @@
+#include <iostream>
+using namespace std;
+struct Node { int data; Node* next; Node(int v):data(v),next(nullptr){} };
+// Q13. Menu-driven insertion, deletion, searching, and display operations.
+class LinkedList{Node*head=nullptr;public:void insertBegin(int x){Node*p=new Node(x);p->next=head;head=p;}void insertEnd(int x){Node*p=new Node(x);if(!head){head=p;return;}Node*t=head;while(t->next)t=t->next;t->next=p;}void deleteBegin(){if(!head){cout<<"List is Empty\n";return;}Node*t=head;head=head->next;delete t;}void deleteEnd(){if(!head){cout<<"List is Empty\n";return;}if(!head->next){delete head;head=nullptr;return;}Node*t=head;while(t->next->next)t=t->next;delete t->next;t->next=nullptr;}void search(int x){int pos=1;for(Node*t=head;t;t=t->next,pos++)if(t->data==x){cout<<"Found at position "<<pos<<'\n';return;}cout<<"Element not found\n";}void display(){if(!head){cout<<"List is Empty\n";return;}for(Node*t=head;t;t=t->next)cout<<t->data<<(t->next?" -> ":" -> NULL\n");}void clear(){while(head){Node*t=head;head=head->next;delete t;}}};
+int main(){LinkedList l;int choice,x;do{cout<<"1 Insert Beginning 2 Insert End 3 Delete Beginning 4 Delete End 5 Search 6 Display 7 Exit\n";cin>>choice;switch(choice){case 1:cin>>x;l.insertBegin(x);break;case 2:cin>>x;l.insertEnd(x);break;case 3:l.deleteBegin();break;case 4:l.deleteEnd();break;case 5:cin>>x;l.search(x);break;case 6:l.display();break;case 7:break;default:cout<<"Invalid choice\n";}}while(choice!=7);l.clear();}
+// Insert beginning/delete beginning: O(1). Insert end/delete end/search/display: O(n). Space: O(n).
